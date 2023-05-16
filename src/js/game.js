@@ -1,6 +1,7 @@
 import '../css/style.css'
 import { Actor, Engine, Vector } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
+import { Rock } from './rock'
 
 export class Game extends Engine {
 
@@ -16,6 +17,9 @@ export class Game extends Engine {
         fish.pos = new Vector(400, 300)
         fish.vel = new Vector(-10,0)
         this.add(fish)
+
+        let Rock = new Rock(100, 100)
+        this.add(Rock)
     }
 }
 
