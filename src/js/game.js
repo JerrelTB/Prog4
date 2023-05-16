@@ -8,7 +8,7 @@ import { Player } from './player'
 export class Game extends Engine {
 
     constructor() {
-        super({ width: 600, height: 400 })
+        super({ width: 1920, height: 1080})
         this.start(ResourceLoader).then(() => this.startGame())
     }
 

@@ -1,4 +1,7 @@
-import { Actor } from "excalibur";
+import { Actor, Input, Vector } from "excalibur";
+import { Resources } from "./resources";
+
+const MAX_SPEED = 300
 
 export class Player extends Actor{
 
@@ -12,6 +15,28 @@ export class Player extends Actor{
 
     
     onInitialize(engine){
-        this.graphics.use(Resources.Platform.toSprite())
+        this.graphics.use(Resources.Player.toSprite())
+    }
+
+    onPreUpdate(engine){
+
+    let xspeed = 0
+    let yspeed = 0
+
+        if (engine.input.keyboard.isHeld(Input.Keys.W) || engine.input.keyboard.isHeld(Input.Keys.Up)) {
+            yspeed = -MAX_SPEED
+        }
+        if (engine.input.keyboard.isHeld(Input.Keys.S) || engine.input.keyboard.isHeld(Input.Keys.Down)) {
+            yspeed = MAX_SPEED
+        }
+        if (engine.input.keyboard.isHeld(Input.Keys.A) || engine.input.keyboard.isHeld(Input.Keys.Left)) {
+            xspeed = -MAX_SPEED 
+        }  
+        if (engine.input.keyboard.isHeld(Input.Keys.D) || engine.input.keyboard.isHeld(Input.Keys.Right)) {
+            xspeed = MAX_SPEED
+        }
+        
+
+        this.vel = new Vector(xspeed, yspeed)
     }
 }
