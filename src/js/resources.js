@@ -7,7 +7,7 @@ import player from '../images/Player.png'
 const Resources = {
     Fish: new ImageSource(fishImage),
     Platform: new ImageSource(platform),
-    Pllayer: new ImageSource(player)
+    Player: new ImageSource(player)
 }
 
 const ResourceLoader = new Loader([Resources.Fish, Resources.Platform, Resources.Player])
