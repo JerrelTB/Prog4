@@ -1,5 +1,5 @@
 import '../css/style.css'
-import { Actor, Engine, Vector } from "excalibur"
+import { Actor, Color, Engine, Vector } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Rock } from './rock'
 import { Platform } from './platform'
@@ -8,7 +8,8 @@ import { Player } from './player'
 export class Game extends Engine {
 
     constructor() {
-        super({ width: 1920, height: 1080})
+        super({ width: 1920, height: 1080,
+        backgroundColor: Color.Black})
         this.start(ResourceLoader).then(() => this.startGame())
     }
 
@@ -28,7 +29,12 @@ export class Game extends Engine {
 
         let player = new Player(300, 300)
         this.add(player)
+        
 
+
+
+        this.showDebug(true)
+        this.showDebug.transform.showAll = true
     }
 }
 
