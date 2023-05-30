@@ -28,7 +28,7 @@ export class Game extends Engine {
 
         this.addScene('room', new Room())
         this.goToScene('room')
-
+        console.log(testroom)
 
 
 
