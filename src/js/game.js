@@ -1,40 +1,44 @@
+import * as ex from 'excalibur';
 import '../css/style.css'
-import { Actor, Color, Engine, Vector } from "excalibur"
+import { Actor, Color, Engine, Resolution, Vector } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
-import { Rock } from './rock'
-import { Platform } from './platform'
 import { Player } from './player'
+import { Room } from './Rooms/testroom';
+
+
 
 export class Game extends Engine {
 
     constructor() {
-        super({ width: 1920, height: 1080,
-        backgroundColor: Color.Black})
+        super({ 
+        viewport: { width: 1280, height: 720},
+        resolution: {width: 1920, height: 1080},
+        backgroundColor: Color.Black,
+        fixedUpdateFps: 60,
+        antialiasing: false 
+        
+        })
+
+ 
         this.start(ResourceLoader).then(() => this.startGame())
     }
 
+
     startGame() {
-        console.log("start de game!")
-        // const fish = new Actor()
-        // fish.graphics.use(Resources.Fish.toSprite())
-        // fish.pos = new Vector(400, 300)
-        // fish.vel = new Vector(-10,0)
-        // this.add(fish)
-    
-        let rock = new Rock(100, 100)
-        this.add(rock)
 
-        let platform = new Platform(200, 200)
-        this.add(platform)
-
-        let player = new Player(300, 300)
-        this.add(player)
-        
+        this.addScene('room', new Room())
+        this.goToScene('room')
 
 
+
+
+        // let player = new Player(0, 0)
+        // this.add(player)
 
         this.showDebug(true)
         this.showDebug.transform.showAll = true
+
+        
     }
 }
 
