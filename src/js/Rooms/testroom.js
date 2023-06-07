@@ -1,21 +1,34 @@
-import { Actor, CollisionType, Input, Scene, Vector } from "excalibur";
-import { Resources } from "../resources";
-import { Game } from "../game";
+
+import { Actor, CollisionType, Input, Scene, Sound, Vector } from "excalibur";
 import { Player } from "../player";
-import { Map } from "../map";
+import { Ship } from "../Actors/Ship";
+import { Resources, Sounds} from '../resources';
+import { Meteors } from "../Actors/Meteors";
 
 
-export class Room extends Scene{
+
+export class Space extends Scene{
+    can_move = true
+    
+
+
+
 onInitialize(engine){
-    let map = new Map
-    this.add(map)
+    let spaceship = new Ship(480,270)
+    //this.camera.strategy.elasticToActor(spaceship, 0.2, .8)
+    this.add(spaceship)
 
-    let player = new Player(0, 0)
-    this.add(player)
-    
-    this.camera.strategy.elasticToActor(player, 0.05, 0)
+    Sounds.Countdown.play(0.5)
+    Sounds.Battletheme.play(0.1)
+
+
+    let bigmeteor = new Meteors(200, 200)
+    this.add(bigmeteor)
     
 
+}
+
+onPreUpdate(engine){
 
 }
 }
