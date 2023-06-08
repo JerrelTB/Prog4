@@ -1,35 +1,53 @@
-
 import { Actor, CollisionType, Input, Scene, Sound, Vector } from "excalibur";
 import { Player } from "../player";
 import { Ship } from "../Actors/Ship";
 import { Resources, Sounds} from '../resources';
 import { Meteors } from "../Actors/Meteors";
+import { Bullet } from "../Actors/bullet";
 
 
 
 export class Space extends Scene{
-    can_move = true
     
 
 
 
 onInitialize(engine){
+    this.game = engine
+
     let spaceship = new Ship(480,270)
-    //this.camera.strategy.elasticToActor(spaceship, 0.2, .8)
     this.add(spaceship)
 
-    Sounds.Countdown.play(0.5)
+    Sounds.Countdown.play(0.7)
     Sounds.Battletheme.play(0.1)
+    Sounds.Battletheme.loop =  true
 
 
-    let bigmeteor = new Meteors(200, 200)
+    let bigmeteor = new Meteors()
     this.add(bigmeteor)
-    
 
 }
 
 onPreUpdate(engine){
-
 }
+
+
+hitrecieved(event){
+    this.camera.shake(15,15,100)
+}
+
+addBullet(spawnPoint, rotation){
+    console.log(spawnPoint)
+    this.add(new Bullet(spawnPoint,rotation))
+    
+}
+
+gameOver(){
+    Sounds.Battletheme.stop()
+    this.game.goToScene('GameOver')
+    
+}
+
+
 }
 

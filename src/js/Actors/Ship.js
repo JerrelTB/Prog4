@@ -1,29 +1,65 @@
-import { Actor, Camera, CollisionType, Input, Vector } from "excalibur";
+import { Actor, Camera, CollisionType, Input, Vector, Scene, Direction } from "excalibur";
 import {Resources, Sounds} from "../resources"
+import { Meteors } from "./Meteors";
+import { Space } from "../Scenes/space";
+import { Game } from "../game";
+
 
 export class Ship extends Actor{
+    can_move
+    can_crash
 
     
-    ROTATION_SPEED = 0.08
-    can_move
 
-    constructor(x, y){
+    //half of resolution width and height needed for pos reset, ScreenWidth, ScreenHeight
+    sw_reset = 480
+    sh_reset = 270
+    
+
+    ROTATION_SPEED = 0.08
+    lives
+
+    constructor(x, y, lives){
         super({
             pos: new Vector(x, y),
-            scale: new Vector(2.5, 2.5),
-            rotation: 0.90
+            scale: new Vector(1.5, 1.5),
+            rotation: 0.90,
+            width: Resources.Spaceship.width,
+            height: Resources.Spaceship.height,
+            CollisionType: CollisionType.Active
         })
+
+        this.lives = 3
     }
 
     onInitialize(engine){
+        this.game = engine
         this.graphics.use(Resources.Spaceship.toSprite())
+
+        this.on('collisionstart', (event) => {
+            this.hitMeteor(event),
+            this.CrashAndDie(event)
+        })
+        
     }
 
     onPreUpdate(engine){
         this.movement(engine)
-        this.offscreenShip(engine)
-        this.Shooting(engine)
+        this.offscreenShip()
+
+
+
+        if(engine.input.keyboard.wasPressed(Input.Keys.Space)){
+            this.Shoot()
+        }
+        
+        // this.resetPosition(engine, this.sw_reset, this.sh_reset)
     }
+
+
+
+
+
 
     movement(engine){
         
@@ -34,11 +70,8 @@ export class Ship extends Actor{
         engine.input.keyboard.isHeld(Input.Keys.W) ||
         engine.input.keyboard.isHeld(Input.Keys.Up)
         ){
-            speed = 350;
-        }else {
-            
+            speed = 300;
         }
-
 
 
         //rotation ship
@@ -56,6 +89,10 @@ export class Ship extends Actor{
             this.rotation -= this.ROTATION_SPEED
         }
 
+        if (engine.input.keyboard.isHeld(Input.Keys.ShiftLeft)){
+            speed = 500
+        }
+
         let direction = new Vector(
             Math.cos(this.rotation) * speed,
             Math.sin(this.rotation) * speed
@@ -65,7 +102,7 @@ export class Ship extends Actor{
 
     }
 
-    offscreenShip(engine) {
+    offscreenShip() {
         let screenWidth = 960
         let screenHeight = 540
         let margin = 20
@@ -85,12 +122,33 @@ export class Ship extends Actor{
         }
     }
 
-    Shooting(engine){
-        if (engine.input.keyboard.wasPressed(Input.Keys.Space)){
-            Sounds.Blastershot.play(0.2)
+    Shoot(){
+        this.game.currentScene.addBullet(this.pos, this.rotation)
+        Sounds.Blastershot.play(0.2)
+    }
+
+        
+    
+
+    hitMeteor(event){
+
+        if (event.other instanceof Meteors){
+            event.other.hitBySpaceship()
+            Sounds.Shiphit.play(0.5)
+            this.lives -= 1
+            console.log(this.lives)
         }
     }
 
+    CrashAndDie(event){
+        if (event.other instanceof Meteors){
+            this.pos = new Vector(480,270)
+            this.actions.blink(200,200,3)
+            if( this.lives === 0 ){
+                this.game.currentScene.gameOver()
+            }        
+        }
+    }
 
 
 }

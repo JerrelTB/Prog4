@@ -1,9 +1,16 @@
 
+//engine
 import '../css/style.css'
 import { Actor, Color, Engine, Resolution, Vector } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 
-import {Space } from './Rooms/testroom';
+
+//scenes
+import { Space } from './Scenes/space';
+import { GameOver } from './Scenes/gameover';
+import { Leaderboard } from './Scenes/leaderboard';
+import { StartMenu } from './Scenes/startmenu';
+import { Settings } from './Scenes/settings';
 
 
 
@@ -12,7 +19,7 @@ export class Game extends Engine {
 
     constructor() {
         super({ 
-        viewport: { width: 1280, height:720},
+        viewport: { width: 1664, height: 936},
         resolution: {width: 960, height: 540},
         backgroundColor: Color.Black,
         fixedUpdateFps: 60,
@@ -26,19 +33,22 @@ export class Game extends Engine {
 
 
     startGame() {
+
+
         //scenes
-        this.addScene('Gameover', new GameOver() )
+        this.addScene('Settings', new Settings)
+        this.addScene ('Startmenu', new StartMenu)
+        this.addScene ('Leaderboard', new Leaderboard())
+        this.addScene('GameOver', new GameOver() )
         this.addScene('Space', new Space())
+
         this.goToScene('Space')
 
 
 
 
-        // let player = new Player(0, 0)
-        // this.add(player)
 
-        // this.showDebug(true)
-        this.showDebug.transform.showAll = true
+        this.showDebug(true)
 
         
     }
