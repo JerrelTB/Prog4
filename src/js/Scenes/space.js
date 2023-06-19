@@ -22,6 +22,9 @@ onInitialize(engine){
     Sounds.Battletheme.play(0.1)
     Sounds.Battletheme.loop =  true
 
+    let meteor = new Meteors
+
+
 
     let bigmeteor = new Meteors()
     this.add(bigmeteor)
@@ -37,17 +40,16 @@ hitrecieved(event){
 }
 
 addBullet(spawnPoint, rotation){
-    console.log(spawnPoint)
     this.add(new Bullet(spawnPoint,rotation))
     
 }
 
 gameOver(){
     Sounds.Battletheme.stop()
+    Sounds.Deathsound.play(0.3)
     this.game.goToScene('GameOver')
     
 }
 
 
 }
-

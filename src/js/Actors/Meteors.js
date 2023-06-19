@@ -3,15 +3,15 @@ import {Resources, Sounds} from "../resources"
 
 export class Meteors extends Actor{
 
-    
+    MeteorCount = 0
 
     constructor(x, y){
         super({
             pos: new Vector(x, y),
             scale: new Vector(3, 3),
             vel: new Vector(0, 200),
-            width: 25,
-            height: 20,
+            width: 22,
+            height: 18,
             CollisionType: CollisionType.Active
         })
     }
@@ -63,4 +63,16 @@ export class Meteors extends Actor{
     hitBySpaceship(event){
         console.log('crash')
     }
+
+    hitByBullet(event){
+        console.log('meteor gone')
+        Sounds.Meteorhit.play(0.6)
+        this.actions.fade(0, 10)
+        this.MeteorCount --
+        console.log(this.MeteorCount)
+        this.kill()
+    }
+
+
+        
 }

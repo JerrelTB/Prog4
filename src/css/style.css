@@ -1,9 +1,9 @@
 body {
     margin:0;
     padding:0;
-    background-color:rgb(255, 255, 255);
-    position: absolute;
-    margin: auto ;
-    top: 3.5%;
-    left: 7%;
+    background-color:rgb(0, 0, 0);
+    justify-content: center;
+    display: flex;
+    height: 100vh;
+    align-items: center;
 }

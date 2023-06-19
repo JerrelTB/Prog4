@@ -12,6 +12,8 @@ import blastershot from './Sounds/blastershot.mp3'
 import countdown from './Sounds/countdown.mp3'
 import battletheme from './Sounds/battletheme.mp3'
 import shiphit from './Sounds/shiphit.mp3'
+import deathsound from "./Sounds/deathsound.mp3"
+import meteorhit from "./Sounds/meteorhit.mp3"
 
 const Resources = {
     Player: new ImageSource(player),
@@ -26,14 +28,17 @@ const Sounds = {
     Countdown: new Sound(countdown),
     Battletheme: new Sound(battletheme),
     Blastershot: new Sound(blastershot),
-    Shiphit: new Sound(shiphit)
+    Shiphit: new Sound(shiphit),
+    Meteorhit: new Sound(meteorhit),
+    Deathsound: new Sound(deathsound)
 }
 
 const ResourceLoader = new Loader([Resources.Testroom, Resources.Player,
      Resources.Spaceship, Resources.BigMeteor,
      Resources.Bullet,
     Sounds.Countdown, Sounds.Battletheme,
-     Sounds.Blastershot, Sounds.Shiphit])
+     Sounds.Blastershot, Sounds.Shiphit,
+    Sounds.Deathsound, Sounds.Meteorhit])
 
 
 export { Resources, Sounds, ResourceLoader }

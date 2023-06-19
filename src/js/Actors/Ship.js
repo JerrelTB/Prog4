@@ -136,7 +136,7 @@ export class Ship extends Actor{
             event.other.hitBySpaceship()
             Sounds.Shiphit.play(0.5)
             this.lives -= 1
-            console.log(this.lives)
+            console.log(`Lives left: `)
         }
     }
 
