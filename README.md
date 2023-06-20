@@ -1,6 +1,16 @@
-# Excalibur Startproject 2023
+# Space Patrol: Beta
 
 ![fishes](./src/images/preview.png)
+
+Input
+- Both `WASD` and `Arrow Keys` can be used to move
+- Press `Spacebar` to shoot bullets
+- Boost with the `Left Shift` to avoid meteors more quickly!
+- Press `J` to slowdown
+
+
+
+
 
 - Klik op USE THIS TEMPLATE. Kies als owner jouw eigen github account. 
 - Geef het project een coole naam en check dat dit startproject nu in je eigen github staat.
