@@ -5,6 +5,7 @@ export class GameOver extends Scene{
     onInitialize(){
         
         this.createGameOverText()
+        this.createFinalScore()
 
     }
 
@@ -27,6 +28,20 @@ export class GameOver extends Scene{
         this.add(gameOverText)
     }
 
+    createFinalScore(){
+        const gameOverScore = new Label({
+            text: `Score: L score`,
+            pos: new Vector(400,330),
+            scale: new Vector(0.2, 0.2),
+            color: Color.White,
+            font: new Font({
+                family: 'impact',
+                unit: FontUnit.Rem
+            })
+        })
+        this.add(gameOverScore)
+        console.log(`score added`)
+    }
 
 
 }

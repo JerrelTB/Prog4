@@ -22,7 +22,6 @@ export class Meteors extends Actor{
         this.game = engine
         this.MeteorCount ++
         this.graphics.use(Resources.BigMeteor.toSprite())
-        console.log(this.pos)
 
         //position and excludes
         let posX, posY

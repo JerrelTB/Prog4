@@ -147,6 +147,11 @@ gameOver(){
     Sounds.Battletheme.stop()
     Sounds.Deathsound.play(0.3)
     this.game.goToScene('GameOver')
+
+    let data = {
+        score: this.score
+    }
+    localStorage.setItem("score", JSON.stringify(data))
     
 }
 
