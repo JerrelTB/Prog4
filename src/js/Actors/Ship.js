@@ -14,12 +14,12 @@ export class Ship extends Actor{
     //half of resolution width and height needed for pos reset, ScreenWidth, ScreenHeight
     sw_reset = 480
     sh_reset = 270
-    
 
     ROTATION_SPEED = 0.08
+
     lives
 
-    constructor(x, y, lives){
+    constructor(x, y, givenLives){
         super({
             pos: new Vector(x, y),
             scale: new Vector(1.5, 1.5),
@@ -28,8 +28,9 @@ export class Ship extends Actor{
             height: Resources.Spaceship.height,
             CollisionType: CollisionType.Active
         })
+        
+        this.lives = givenLives
 
-        this.lives = 3
     }
 
     onInitialize(engine){
@@ -135,8 +136,11 @@ export class Ship extends Actor{
         if (event.other instanceof Meteors){
             event.other.hitBySpaceship()
             Sounds.Shiphit.play(0.5)
+            this.game.currentScene.die()
+            this.game.currentScene.hitrecieved()
             this.lives -= 1
-            console.log(`Lives left: `)
+            this.givenLives = this.lives
+            console.log(`Lives left: ${this.lives}`)
         }
     }
 
@@ -146,6 +150,7 @@ export class Ship extends Actor{
             this.actions.blink(200,200,3)
             if( this.lives === 0 ){
                 this.game.currentScene.gameOver()
+                console.log(`you had ${this.givenLives} lives left, you died`)
             }        
         }
     }

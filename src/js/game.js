@@ -9,7 +9,7 @@ import { Resources, ResourceLoader } from './resources.js'
 import { Space } from './Scenes/space';
 import { GameOver } from './Scenes/gameover';
 import { Leaderboard } from './Scenes/leaderboard';
-import { StartMenu } from './Scenes/startmenu';
+import { startGame } from './Scenes/StartMenu/startgame';
 import { Settings } from './Scenes/settings';
 
 
@@ -37,7 +37,7 @@ export class Game extends Engine {
 
         //scenes
         this.addScene('Settings', new Settings)
-        this.addScene ('Startmenu', new StartMenu)
+        this.addScene ('StartGame', new startGame())
         this.addScene ('Leaderboard', new Leaderboard())
         this.addScene('GameOver', new GameOver() )
         this.addScene('Space', new Space())
@@ -48,7 +48,7 @@ export class Game extends Engine {
 
 
 
-        this.showDebug(true)
+        //this.showDebug(true)
 
         
     }

@@ -7,7 +7,7 @@ export class Bullet extends Actor{
     constructor(spawnPoint,rotation) {
         super({
             pos: spawnPoint,
-            vel: new Vector(Math.cos(rotation) * 500, Math.sin(rotation) * 500),
+            vel: new Vector(Math.cos(rotation) * 600, Math.sin(rotation) * 600),
             rotation: rotation,
             width: Resources.Bullet.width,
             height: Resources.Bullet.height,

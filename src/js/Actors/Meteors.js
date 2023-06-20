@@ -4,6 +4,7 @@ import {Resources, Sounds} from "../resources"
 export class Meteors extends Actor{
 
     MeteorCount = 0
+    points = 100
 
     constructor(x, y){
         super({
@@ -17,6 +18,8 @@ export class Meteors extends Actor{
     }
 
     onInitialize(engine){
+        this.game = engine
+        this.MeteorCount ++
         this.graphics.use(Resources.BigMeteor.toSprite())
         console.log(this.pos)
 
@@ -61,15 +64,17 @@ export class Meteors extends Actor{
     }
 
     hitBySpaceship(event){
-        console.log('crash')
+        console.log('crashed with meteor')
     }
 
-    hitByBullet(event){
-        console.log('meteor gone')
+    hitByBullet(){
+        console.log('meteor is destroyed')
         Sounds.Meteorhit.play(0.6)
-        this.actions.fade(0, 10)
+
         this.MeteorCount --
         console.log(this.MeteorCount)
+
+        this.game.currentScene.updateScore()
         this.kill()
     }
 

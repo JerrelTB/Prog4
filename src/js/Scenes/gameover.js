@@ -4,6 +4,15 @@ export class GameOver extends Scene{
 
     onInitialize(){
         
+        this.createGameOverText()
+
+    }
+
+
+
+
+
+    createGameOverText(){
         const gameOverText = new Label({
             text: 'GAME OVER',
             pos: new Vector(130,270),
@@ -16,6 +25,8 @@ export class GameOver extends Scene{
             })
         })
         this.add(gameOverText)
-
     }
+
+
+
 }
