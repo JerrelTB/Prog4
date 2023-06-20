@@ -56,37 +56,6 @@ onInitialize(engine){
     let bigmeteor = new Meteors()
     this.add(bigmeteor)
 
-
-    //UI
-    this.lifeCountLabel = new Label({
-        text: `Lives: ${this.givenLives}`,
-        pos: new Vector(10,30),
-        scale: new Vector(0.2, 0.2),
-        color: Color.White,
-        font: new Font({
-            family: 'impact',
-            unit: FontUnit.Rem
-        })
-    })
-    this.add(this.lifeCountLabel)
-
-
-
-
-
-    this.scoreCountLabel = new Label({
-        text: `Score: ${this.score}`,
-        pos: new Vector(200,30),
-        scale: new Vector(0.2, 0.2),
-        color: Color.White,
-        font: new Font({
-            family: 'impact',
-            unit: FontUnit.Rem
-        })
-    })
-    this.add(this.scoreCountLabel)
-
-
     let meteors = [];
     const totalMeteors = 3;
     const minMeteorsOnScreen = 1;
@@ -111,6 +80,36 @@ onInitialize(engine){
 
 
     setInterval(checkMeteorsOnScreen, 800);
+
+
+        //UI
+        this.lifeCountLabel = new Label({
+            text: `Lives: ${this.givenLives}`,
+            pos: new Vector(10,30),
+            scale: new Vector(0.2, 0.2),
+            color: Color.White,
+            font: new Font({
+                family: 'impact',
+                unit: FontUnit.Rem
+            })
+        })
+        this.add(this.lifeCountLabel)
+    
+    
+    
+    
+    
+        this.scoreCountLabel = new Label({
+            text: `Score: ${this.score}`,
+            pos: new Vector(200,30),
+            scale: new Vector(0.2, 0.2),
+            color: Color.White,
+            font: new Font({
+                family: 'impact',
+                unit: FontUnit.Rem
+            })
+        })
+        this.add(this.scoreCountLabel)
 }
 
 
@@ -146,7 +145,7 @@ addBullet(spawnPoint, rotation){
 gameOver(){
     Sounds.Battletheme.stop()
     Sounds.Deathsound.play(0.3)
-    this.game.goToScene('GameOver')
+    this.game.goToScene('GameOver', {finalscore: this.score})
 
     let data = {
         score: this.score
