@@ -6,9 +6,10 @@ import { Game } from "../game";
 
 
 export class Ship extends Actor{
-    can_move
-    can_crash
 
+    can_move 
+    can_crash 
+    can_shoot 
     
 
     //half of resolution width and height needed for pos reset, ScreenWidth, ScreenHeight
@@ -19,7 +20,7 @@ export class Ship extends Actor{
 
     lives
 
-    constructor(x, y, givenLives){
+    constructor(x, y, givenLives,CM,CC,CS){
         super({
             pos: new Vector(x, y),
             scale: new Vector(1.5, 1.5),
@@ -30,12 +31,16 @@ export class Ship extends Actor{
         })
         
         this.lives = givenLives
+        this.can_move = CM
+        this.can_crash = CC
+        this.can_shoot = CS
 
     }
 
     onInitialize(engine){
         this.game = engine
         this.graphics.use(Resources.Spaceship.toSprite())
+        console.log(this.can_move)
 
         this.on('collisionstart', (event) => {
             this.hitMeteor(event),
@@ -46,6 +51,8 @@ export class Ship extends Actor{
 
     onPreUpdate(engine){
         this.movement(engine)
+
+
         this.offscreenShip()
 
 
@@ -92,6 +99,10 @@ export class Ship extends Actor{
 
         if (engine.input.keyboard.isHeld(Input.Keys.ShiftLeft)){
             speed = 500
+        }
+
+        if (engine.input.keyboard.isHeld(Input.Keys.J)){
+            speed = 150
         }
 
         let direction = new Vector(

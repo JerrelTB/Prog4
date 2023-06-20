@@ -1,5 +1,6 @@
 import { Actor, Camera, CollisionType, Input, Random, Vector } from "excalibur";
 import {Resources, Sounds} from "../resources"
+import { Ship } from "./Ship";
 
 export class Meteors extends Actor{
 
@@ -10,7 +11,7 @@ export class Meteors extends Actor{
         super({
             pos: new Vector(x, y),
             scale: new Vector(3, 3),
-            vel: new Vector(0, 200),
+            vel: new Vector(0, 0),
             width: 22,
             height: 18,
             CollisionType: CollisionType.Active
@@ -23,9 +24,25 @@ export class Meteors extends Actor{
         this.graphics.use(Resources.BigMeteor.toSprite())
         console.log(this.pos)
 
+        //position and excludes
+        let posX, posY
+        do {
+            posX = this.getRandomPositionExcludingRange(280, 590);
+            posY = this.getRandomPositionExcludingRange(180, 320);
+        } while (this.isOverlappingShip(posX, posY));
+          
 
-        this.pos = new Vector(Math.random()*960, Math.random()*600)
-        this.vel = new Vector(Math.random()*200, Math.random()*200 )
+
+        //direction and speed
+        let velX = Math.random() * 400 - 200
+        let velY = Math.random() * 400 - 200
+
+        //random scale not below 1
+        let scalerandom = Math.random()*1.5 + 1.2
+
+        this.pos = new Vector(posX, posY)
+        this.vel = new Vector(velX,velY )
+        this.scale = new Vector( scalerandom, scalerandom)
     
     }
 
@@ -36,7 +53,29 @@ export class Meteors extends Actor{
 
     }
 
+    getRandomPositionExcludingRange(min,max){
+        let position;
+        do {
+          position = Math.random() * 960;
+        } while (position >= min && position <= max);
+        return position;
+    }
 
+    isOverlappingShip(x, y) {
+        // Assuming the ship actor is named "spaceship"
+        let shipActor = this.game.currentScene.actors.find(actor => actor instanceof Ship);
+        if (shipActor) {
+          const shipPos = shipActor.pos;
+
+          return (
+            x >= shipPos.x - shipActor.width / 2 &&
+            x <= shipPos.x + shipActor.width / 2 &&
+            y >= shipPos.y - shipActor.height / 2 &&
+            y <= shipPos.y + shipActor.height / 2
+          );
+        }
+        return false;
+      }
 
 
     offscreenMeteor() {
@@ -65,15 +104,12 @@ export class Meteors extends Actor{
 
     hitBySpaceship(event){
         console.log('crashed with meteor')
+        this.kill()
     }
 
     hitByBullet(){
         console.log('meteor is destroyed')
         Sounds.Meteorhit.play(0.6)
-
-        this.MeteorCount --
-        console.log(this.MeteorCount)
-
         this.game.currentScene.updateScore()
         this.kill()
     }

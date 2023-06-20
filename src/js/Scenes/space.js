@@ -1,4 +1,4 @@
-import { Actor, CollisionType, Input, Scene, Sound, Vector, Label, Color, Font, FontUnit} from "excalibur";
+import { Actor, CollisionType, Input, Scene, Sound, Vector, Label, Color, Font, FontUnit, Engine} from "excalibur";
 import { Player } from "../player";
 import { Ship } from "../Actors/Ship";
 import { Resources, Sounds} from '../resources';
@@ -14,6 +14,11 @@ export class Space extends Scene{
 givenLives
 score = 0
 
+//booleans for better gameplay
+can_move = false
+can_crash = false
+can_shoot = false
+
 //ui labels
 liveCountLabel
 scoreCountLabel
@@ -23,11 +28,18 @@ onInitialize(engine){
     this.game = engine
     this.givenLives = 3
 
+
+
+
     //music
     Sounds.Countdown.play(0.7)
     Sounds.Battletheme.play(0.1)
     Sounds.Battletheme.loop =  true
 
+    //countdown prefences 
+    this.startTimer(3000, () => {
+        this.startValueChange();
+    });
 
 
 
@@ -37,7 +49,7 @@ onInitialize(engine){
     //actors
 
     //player
-    let spaceship = new Ship(480,270, this.givenLives)
+    let spaceship = new Ship(480,270, this.givenLives, this.can_move, this.can_crash, this.can_shoot)
     this.add(spaceship)
 
     //Objects
@@ -74,11 +86,51 @@ onInitialize(engine){
     })
     this.add(this.scoreCountLabel)
 
+
+    let meteors = [];
+    const totalMeteors = 3;
+    const minMeteorsOnScreen = 1;
+  
+    for (let i = 0; i < totalMeteors; i++) {
+      let meteor = new Meteors();
+      meteors.push(meteor);
+      this.add(meteor);
+    }
+
+    const checkMeteorsOnScreen = () => {
+        let meteorsOnScreen = meteors.filter(meteor => meteor.visible);
+        if (meteorsOnScreen.length < minMeteorsOnScreen) {
+          const meteorsToAdd = minMeteorsOnScreen - meteorsOnScreen.length;
+          for (let i = 0; i < meteorsToAdd; i++) {
+            let meteor = new Meteors();
+            meteors.push(meteor);
+            this.add(meteor);
+          }
+        }
+    };
+
+
+    setInterval(checkMeteorsOnScreen, 800);
 }
 
-onActivate(){
+
+
+startTimer(delay, callback) {
+    setTimeout(callback, delay);
 }
 
+startValueChange(){
+    this.can_move = true
+    this.can_crash = true
+    this.can_shoot = true
+    console.log("Values changed")
+    console.log(this.can_move)
+    
+}
+
+
+onPreUpdate(engine){
+}
 
 
 
@@ -113,4 +165,5 @@ updateScore(){
 updateLivesLabel(){
     this.lifeCountLabel.text = `Lives: ${this.givenLives}`
 }
+
 }
