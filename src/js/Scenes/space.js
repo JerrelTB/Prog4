@@ -29,13 +29,6 @@ onInitialize(engine){
     this.givenLives = 3
 
 
-
-
-    //music
-    Sounds.Countdown.play(0.7)
-    Sounds.Battletheme.play(0.1)
-    Sounds.Battletheme.loop =  true
-
     //countdown prefences 
     this.startTimer(3000, () => {
         this.startValueChange();
@@ -57,8 +50,8 @@ onInitialize(engine){
     this.add(bigmeteor)
 
     let meteors = [];
-    const totalMeteors = 3;
-    const minMeteorsOnScreen = 1;
+    const totalMeteors = 5;
+    const minMeteorsOnScreen = 2;
   
     for (let i = 0; i < totalMeteors; i++) {
       let meteor = new Meteors();
@@ -112,6 +105,19 @@ onInitialize(engine){
         this.add(this.scoreCountLabel)
 }
 
+
+
+onActivate(){
+        //music
+        Sounds.Countdown.play(0.7)
+
+        Sounds.Battletheme.loop = true
+        Sounds.Battletheme.play(0.1)
+}
+
+onDeactivate(){
+    Sounds.Battletheme.pause()
+}
 
 
 startTimer(delay, callback) {

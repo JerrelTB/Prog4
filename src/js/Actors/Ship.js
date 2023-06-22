@@ -16,7 +16,8 @@ export class Ship extends Actor{
     sw_reset = 480
     sh_reset = 270
 
-    ROTATION_SPEED = 0.08
+    DECELERATION = 50
+    ROTATION_SPEED = 0.09
 
     lives
 
@@ -40,6 +41,7 @@ export class Ship extends Actor{
     onInitialize(engine){
         this.game = engine
         this.graphics.use(Resources.Spaceship.toSprite())
+        this.can_crash = true
         console.log(this.can_move)
 
         this.on('collisionstart', (event) => {
@@ -81,6 +83,14 @@ export class Ship extends Actor{
             speed = 300;
         }
 
+        if (
+            engine.input.keyboard.isHeld(Input.Keys.S) ||
+            engine.input.keyboard.isHeld(Input.Keys.Down)
+            ){
+                speed = -150;
+            }
+    
+
 
         //rotation ship
         if (
@@ -114,6 +124,10 @@ export class Ship extends Actor{
 
     }
 
+    
+    
+
+
     offscreenShip() {
         let screenWidth = 960
         let screenHeight = 540
@@ -143,26 +157,38 @@ export class Ship extends Actor{
     
 
     hitMeteor(event){
-
-        if (event.other instanceof Meteors){
-            event.other.hitBySpaceship()
-            Sounds.Shiphit.play(0.5)
-            this.game.currentScene.die()
-            this.game.currentScene.hitrecieved()
-            this.lives -= 1
-            this.givenLives = this.lives
-            console.log(`Lives left: ${this.lives}`)
+        if (this.can_crash) {
+            if (event.other instanceof Meteors){
+                event.other.hitBySpaceship()
+                Sounds.Shiphit.play(0.5)
+                this.game.currentScene.die()
+                this.game.currentScene.hitrecieved()
+                this.lives -= 1
+                this.givenLives = this.lives
+                console.log(`Lives left: ${this.lives}`)
+            }
         }
+
     }
 
-    CrashAndDie(event){
-        if (event.other instanceof Meteors){
-            this.pos = new Vector(480,270)
-            this.actions.blink(200,200,3)
-            if( this.lives === 0 ){
-                this.game.currentScene.gameOver()
-                console.log(`you had ${this.givenLives} lives left, you died`)
-            }        
+    CrashAndDie(event) {
+        if (this.can_crash) {
+            if (event.other instanceof Meteors) {
+                this.pos = new Vector(480, 270);
+                
+                const blinkDuration = 250; // Duration of the blink animation in milliseconds
+                const blinkCount = 3; // Number of times the object should blink
+                this.can_crash	= false
+                this.actions.blink(blinkDuration, blinkDuration, blinkCount);
+                
+                setTimeout(() => {
+                    this.can_crash = true;
+                }, blinkDuration * blinkCount);
+                if (this.lives === 0) {
+                    this.game.currentScene.gameOver();
+                    console.log(`you had ${this.givenLives} lives left, you died`);
+                }
+            }
         }
     }
 

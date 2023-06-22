@@ -13,6 +13,12 @@ import { startGame } from './Scenes/StartMenu/startgame';
 import { Settings } from './Scenes/settings';
 
 
+fetch("images\Logo.png").then(Response => {
+    console.log(Response)
+    return Response.blob()
+    }).then()
+
+
 
 
 export class Game extends Engine {
