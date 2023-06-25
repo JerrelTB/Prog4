@@ -8,14 +8,15 @@ export class Spaceimg extends Actor {
 
     constructor(){
         super({
-            scale: new Vector(1.6, 1.2)
+            scale: new Vector(2, 1.2)
         })
     }
     offset
     
     onInitialize(engine){
+        
         const spaceImage = Resources.SpaceBG.toSprite()
-        this.offset = spaceImage.width * 1.6
+        this.offset = Resources.SpaceBG.width * 2
 
         const group = new GraphicsGroup({
             members: [

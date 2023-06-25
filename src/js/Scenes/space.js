@@ -53,8 +53,8 @@ onInitialize(engine){
     this.add(bigmeteor)
 
     let meteors = [];
-    const totalMeteors = 4;
-    const minMeteorsOnScreen = 2;
+    const totalMeteors = 5;
+    const minMeteorsOnScreen = 1;
   
     for (let i = 0; i < totalMeteors; i++) {
       let meteor = new Meteors();
