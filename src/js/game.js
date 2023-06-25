@@ -48,7 +48,7 @@ export class Game extends Engine {
         this.addScene('GameOver', new GameOver() )
         this.addScene('Space', new Space())
 
-        this.goToScene('Space')
+        this.goToScene('StartGame')
 
 
 

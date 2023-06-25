@@ -5,6 +5,7 @@ import { Resources, Sounds} from '../resources';
 import { Meteors } from "../Actors/Meteors";
 import { Bullet } from "../Actors/bullet";
 import { LivesUI } from "../UI/livesleft";
+import { Spaceimg } from "./StartMenu/Background";
 
 
 
@@ -28,6 +29,8 @@ onInitialize(engine){
     this.game = engine
     this.givenLives = 3
 
+    let Background = new Spaceimg
+    this.add(Background)
 
     //countdown prefences 
     this.startTimer(3000, () => {
@@ -50,7 +53,7 @@ onInitialize(engine){
     this.add(bigmeteor)
 
     let meteors = [];
-    const totalMeteors = 5;
+    const totalMeteors = 4;
     const minMeteorsOnScreen = 2;
   
     for (let i = 0; i < totalMeteors; i++) {
@@ -112,7 +115,7 @@ onActivate(){
         Sounds.Countdown.play(0.7)
 
         Sounds.Battletheme.loop = true
-        Sounds.Battletheme.play(0.1)
+        Sounds.Battletheme.play(0.3)
 }
 
 onDeactivate(){

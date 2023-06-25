@@ -177,7 +177,7 @@ export class Ship extends Actor{
                 this.pos = new Vector(480, 270);
                 
                 const blinkDuration = 250; // Duration of the blink animation in milliseconds
-                const blinkCount = 3; // Number of times the object should blink
+                const blinkCount = 2; // Number of times the object should blink
                 this.can_crash	= false
                 this.actions.blink(blinkDuration, blinkDuration, blinkCount);
                 
