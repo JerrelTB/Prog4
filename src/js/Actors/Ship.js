@@ -3,6 +3,7 @@ import {Resources, Sounds} from "../resources"
 import { Meteors } from "./Meteors";
 import { Space } from "../Scenes/space";
 import { Game } from "../game";
+import { ITEM } from "./ITEM";
 
 
 export class Ship extends Actor{
@@ -21,6 +22,11 @@ export class Ship extends Actor{
 
     lives
 
+
+    //
+    isGuideline = false
+    ACC
+
     constructor(x, y, givenLives,CM,CC,CS){
         super({
             pos: new Vector(x, y),
@@ -36,6 +42,8 @@ export class Ship extends Actor{
         this.can_crash = CC
         this.can_shoot = CS
 
+        this.ACC = new ITEM
+
     }
 
     onInitialize(engine){
@@ -49,6 +57,8 @@ export class Ship extends Actor{
             this.CrashAndDie(event)
         })
         
+
+
     }
 
     onPreUpdate(engine){
@@ -62,6 +72,13 @@ export class Ship extends Actor{
         if(engine.input.keyboard.wasPressed(Input.Keys.Space)){
             this.Shoot()
         }
+
+
+        //show settings
+        if(engine.input.keyboard.wasPressed(Input.Keys.H)){
+            this.addGuide()
+        }
+        
         
         // this.resetPosition(engine, this.sw_reset, this.sh_reset)
     }
@@ -189,6 +206,18 @@ export class Ship extends Actor{
                     console.log(`you had ${this.givenLives} lives left, you died`);
                 }
             }
+        }
+    }
+
+
+    addGuide(){
+        if(!this.isGuideline){
+            this.isGuideline = true
+            
+            this.addChild(this.ACC)
+        } else if(this.isGuideline){
+            this.removeChild(this.ACC)
+            this.isGuideline = false
         }
     }
 

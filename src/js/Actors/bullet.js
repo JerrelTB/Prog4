@@ -26,9 +26,7 @@ export class Bullet extends Actor{
         })
     }
 
-    onPreUpdate(){
 
-    }
 
 
     destroyMeteors(event){

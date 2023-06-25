@@ -1,5 +1,4 @@
 import { Actor, CollisionType, Input, Scene, Sound, Vector, Label, Color, Font, FontUnit, Engine} from "excalibur";
-import { Player } from "../player";
 import { Ship } from "../Actors/Ship";
 import { Resources, Sounds} from '../resources';
 import { Meteors } from "../Actors/Meteors";
@@ -47,10 +46,6 @@ onInitialize(engine){
     //player
     let spaceship = new Ship(480,270, this.givenLives, this.can_move, this.can_crash, this.can_shoot)
     this.add(spaceship)
-
-    //Objects
-    let bigmeteor = new Meteors()
-    this.add(bigmeteor)
 
     let meteors = [];
     const totalMeteors = 5;

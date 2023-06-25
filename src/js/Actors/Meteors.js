@@ -3,8 +3,6 @@ import {Resources, Sounds} from "../resources"
 import { Ship } from "./Ship";
 
 export class Meteors extends Actor{
-
-    MeteorCount = 0
     points = 100
 
     constructor(x, y){

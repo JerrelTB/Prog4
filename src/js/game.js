@@ -56,7 +56,6 @@ export class Game extends Engine {
 
         //this.showDebug(true)
 
-        
     }
 }
 
