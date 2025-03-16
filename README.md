@@ -1,7 +1,5 @@
 # Space Patrol: Alpha
 
-![fishes](./src/images/preview.png)
-
 Input
 - Both `WASD` and `Arrow Keys` can be used to move
 - Press `Spacebar` to shoot bullets
