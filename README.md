@@ -1,4 +1,4 @@
-# Space Patrol: Beta
+# Space Patrol: Alpha
 
 ![fishes](./src/images/preview.png)
 
